@@ -27,7 +27,18 @@
         { "char": "\\[", "escapable": true },
         { "char": "\\]", "escapable": true }
     ],
-	"comment": "^\\#\\#.*?$",
+	"comments": [
+		{
+			"name": "line_comment",
+			"token_type": "comment.cscsca",
+			"match": "^\\#\\#.*?$"
+		},
+		{
+			"name": "io_msg",
+			"token_type": "comment.io.cscsca",
+			"match": "(?<=^(PRINT|(GET_AS_CODE|GET\\s*?w~))).+?$"
+		}
+	],
     "expressions": [
         {
 			"name": "statement",

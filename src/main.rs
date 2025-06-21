@@ -45,7 +45,7 @@ struct GrammarGenerator {
     breaking_behind_placeholder: String,
     word_placeholder: String,
     breaking_chars: Vec<BreakingChar>,
-    comment: String,
+    comments: Vec<ExpressionFormat>,
     expressions: Vec<ExpressionFormat>
 }
 
@@ -106,7 +106,7 @@ impl From<GrammarGenerator> for GrammarFile {
             breaking_behind_placeholder: _,
             word_placeholder: _,
             breaking_chars: _,
-            comment,
+            comments,
             expressions,
         } = &grammar_gen;
 
@@ -114,13 +114,18 @@ impl From<GrammarGenerator> for GrammarFile {
             name: "CSCSCA".to_string(),
             patterns: vec![Include("comment".to_string()), Include("expression".to_string())],
             repository: Repository {
-                comment: Patterns { patterns: vec![Include(comment.clone())] },
+                comment: Patterns {
+                    patterns: comments.into_iter().
+                        map(|ef| Include(ef.name.clone()))
+                        .collect()
+                },
                 expression: Patterns {
                     patterns: expressions.into_iter().
                         map(|ef| Include(ef.name.clone()))
                         .collect()
                 },
-                expr_formats: expressions.into_iter()
+                expr_formats: comments.into_iter()
+                    .chain(expressions.into_iter())
                     .map(|ExpressionFormat { name, token_type, r#match }| ExpressionFormat {
                         name: name.clone(),
                         token_type: token_type.clone(),
