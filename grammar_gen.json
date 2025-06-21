@@ -1,0 +1,98 @@
+{
+    "breaking_ahead_placeholder": ">~",
+    "no_breaking_ahead_placeholder": "!~",
+    "breaking_behind_placeholder": "~<",
+    "word_placeholder": "w~",
+    "breaking_chars": [
+        { "char": "\\s", "escapable": false },
+        { "char": "^", "escapable": false },
+        { "char": "$", "escapable": false },
+        { "char": ">", "escapable": true },
+        { "char": "<", "escapable": true },
+        { "char": "/", "escapable": true },
+        { "char": "&", "escapable": true },
+        { "char": "!", "escapable": true },
+        { "char": "@", "escapable": true },
+        { "char": "\\$", "escapable": true },
+        { "char": "%", "escapable": true },
+        { "char": "\\#", "escapable": true },
+        { "char": ",", "escapable": true },
+        { "char": "\\*", "escapable": true },
+        { "char": "=", "escapable": true },
+        { "char": "\\(", "escapable": true },
+        { "char": "\\)", "escapable": true },
+        { "char": "\\{", "escapable": true },
+        { "char": "\\}", "escapable": true },
+        { "char": "\\.", "escapable": true },
+        { "char": "\\[", "escapable": true },
+        { "char": "\\]", "escapable": true }
+    ],
+	"comment": "^\\#\\#.*?$",
+    "expressions": [
+        {
+			"name": "statement",
+			"token_type": "keyword.cscsca strong.cscsca",
+			"match": "^(DEFINE|PRINT|GET_AS_CODE|GET)"
+		},
+        {
+			"name": "potentially_special_characters",
+			"token_type": "keyword.cscsca",
+			"match": "~<(_|\\.\\.)>~"
+		},
+		{
+			"name": "special_characters",
+			"token_type": "keyword.cscsca",
+			"match": "(?<!\\\\)(\\#|\\*|=)"
+		},
+		{
+			"name": "definition_call",
+			"token_type": "entity.name.type.cscsca",
+			"match": "@w~"
+		},
+		{
+			"name": "variable_call",
+			"token_type": "entity.name.type.cscsca emphasis.cscsca",
+			"match": "%w~"
+		},
+		{
+			"name": "label",
+			"token_type": "entity.name.function.cscsca emphasis.cscsca",
+			"match": "\\$w~"
+		},
+		{
+			"name": "definition_name",
+			"token_type": "entity.name.type.cscsca",
+			"match": "(?<=(^DEFINE\\s*?))w~"
+		},
+		{
+			"name": "variable_name",
+			"token_type": "entity.name.type.cscsca emphasis.cscsca",
+			"match": "(?<=(^(GET_AS_CODE|GET)\\s*?))w~"
+		},
+		{
+			"name": "break",
+			"token_type": "keyword.control.cscsca",
+			"match": "(?<!\\\\)(>>|>|<<|<|//|/!|/|&!|&)"
+		},
+		{
+			"name": "punctuation",
+			"token_type": "punctuation.seperator.cscsca",
+			"match": "(?<!\\\\),"
+		},
+		{
+			"name": "scope_bound",
+			"token_type": "punctuation.bound.cscsca",
+			"match": "(?<!\\\\)(\\(|\\)|\\{|\\})"
+		},
+		{
+			"name": "reserved",
+			"token_type": "invalid.reserved.cscsca",
+			"match": "(?<!\\\\)(\\.|\\[|\\]|!)"
+		},
+		{
+			"name": "phone",
+			"token_type": "variable.phone.cscsca",
+			"match": "w~"
+		}
+	]
+}
