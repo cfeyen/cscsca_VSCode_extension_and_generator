@@ -1,5 +1,6 @@
 use std::{
-    fs, io::{self, Write}, process::Command
+    fs,
+    io::{self, Write},
 };
 
 use serde::{Deserialize, Serialize};
@@ -11,15 +12,6 @@ fn main() {
 }
 
 fn gen_ext() -> io::Result<()> {
-    let source_dir = get("Enter source directory");
-    let target_dir = get("Enter target directory name");
-
-    Command::new("cp")
-        .arg("-r")
-        .arg(&source_dir)
-        .arg(&target_dir)
-        .output()?;
-
     let gen_file = get("Enter JSON gen file");
     let gen_json = fs::read_to_string(gen_file)?;
     let gen_json = serde_json::from_str::<GrammarGenerator>(&gen_json)?;
@@ -27,7 +19,8 @@ fn gen_ext() -> io::Result<()> {
     let grammar: GrammarFile = gen_json.into();
     let grammar = serde_json::to_string(&grammar)?;
 
-    fs::write(format!("{target_dir}/syntaxes/grammar.json"), grammar)
+    let target_file = get("Enter output file name");
+    fs::write(target_file, grammar)
 }
 
 
