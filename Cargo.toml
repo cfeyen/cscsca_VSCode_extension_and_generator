@@ -4,5 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+# Licensed under the MIT License, https://github.com/serde-rs
 serde = { version = "1.0.219", features = ["derive"] }
+# Licensed under the MIT License, https://github.com/json
 serde_json = { version = "1.0.140", features = ["preserve_order"] }
