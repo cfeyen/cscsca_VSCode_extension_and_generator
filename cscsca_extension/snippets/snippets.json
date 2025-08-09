@@ -1,0 +1,32 @@
+{
+    "Vowels": {
+        "prefix": ["dv"],
+        "body": ["DEFINE V {i, e, a, u, o}\n$0"],
+        "description": "Basic 5-vowel system"
+    },
+    "Between": {
+        "prefix": ["/"],
+        "body": ["/ ${$1:before} _ ${$2:after}$0"],
+        "description": "Condition between elements"
+    },
+    "Print": {
+        "prefix": ["print "],
+        "body": ["PRINT ${1:msg}:\n$0"],
+        "description": "Print message"
+    },
+    "Get": {
+        "prefix": ["get "],
+        "body": ["GET ${1:var} ${2:msg}:\n$0"],
+        "description": "Get value"
+    },
+    "GetAsCode": {
+        "prefix": ["get_as_code ", "gc"],
+        "body": ["GET_AS_CODE ${1:var} ${2:msg}:\n$0"],
+        "description": "Get code value"
+    },
+    "CommentPrintBracket": {
+        "prefix": ["cp", "#p"],
+        "body": ["## ${1:msg}\n$0\nPRINT ${1:msg}:\n"],
+        "description": "Creates a comment and PRINT statement around a block"
+    }
+}

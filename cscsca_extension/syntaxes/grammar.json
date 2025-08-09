@@ -1,0 +1,127 @@
+{
+    "name": "CSCSCA",
+    "patterns": [
+        {
+            "include": "#comment"
+        },
+        {
+            "include": "#expression"
+        }
+    ],
+    "repository": {
+        "comment": {
+            "patterns": [
+                {
+                    "include": "#line_comment"
+                },
+                {
+                    "include": "#io_msg"
+                }
+            ]
+        },
+        "expression": {
+            "patterns": [
+                {
+                    "include": "#statement"
+                },
+                {
+                    "include": "#potentially_special_characters"
+                },
+                {
+                    "include": "#special_characters"
+                },
+                {
+                    "include": "#definition_call"
+                },
+                {
+                    "include": "#variable_call"
+                },
+                {
+                    "include": "#label"
+                },
+                {
+                    "include": "#definition_name"
+                },
+                {
+                    "include": "#variable_name"
+                },
+                {
+                    "include": "#break"
+                },
+                {
+                    "include": "#punctuation"
+                },
+                {
+                    "include": "#scope_bound"
+                },
+                {
+                    "include": "#reserved"
+                },
+                {
+                    "include": "#phone"
+                }
+            ]
+        },
+        "line_comment": {
+            "name": "comment.cscsca",
+            "match": "^\\#\\#.*?$"
+        },
+        "io_msg": {
+            "name": "comment.io.cscsca",
+            "match": "(?<=^(PRINT|(GET_AS_CODE|GET\\s*?(\\\\>|\\\\<|\\\\/|\\\\&|\\\\!|\\\\@|\\\\\\$|\\\\%|\\\\\\#|\\\\,|\\\\\\*|\\\\=|\\\\\\(|\\\\\\)|\\\\\\{|\\\\\\}|\\\\\\.|\\\\\\[|\\\\\\]|[^\\s^$></&!@\\$%\\#,\\*=\\(\\)\\{\\}\\.\\[\\]])++))).+?$"
+        },
+        "statement": {
+            "name": "keyword.cscsca strong.cscsca",
+            "match": "^(DEFINE|PRINT|GET_AS_CODE|GET)"
+        },
+        "potentially_special_characters": {
+            "name": "keyword.cscsca",
+            "match": "(?<=\\s|^|$|>|<|/|&|!|@|\\$|%|\\#|,|\\*|=|\\(|\\)|\\{|\\}|\\.|\\[|\\])(_|\\.\\.)(?=\\s|^|$|>|<|/|&|!|@|\\$|%|\\#|,|\\*|=|\\(|\\)|\\{|\\}|\\.|\\[|\\])"
+        },
+        "special_characters": {
+            "name": "keyword.cscsca",
+            "match": "(?<!\\\\)(\\#|\\*|=)"
+        },
+        "definition_call": {
+            "name": "entity.name.type.cscsca",
+            "match": "@(\\\\>|\\\\<|\\\\/|\\\\&|\\\\!|\\\\@|\\\\\\$|\\\\%|\\\\\\#|\\\\,|\\\\\\*|\\\\=|\\\\\\(|\\\\\\)|\\\\\\{|\\\\\\}|\\\\\\.|\\\\\\[|\\\\\\]|[^\\s^$></&!@\\$%\\#,\\*=\\(\\)\\{\\}\\.\\[\\]])++"
+        },
+        "variable_call": {
+            "name": "entity.name.type.cscsca emphasis.cscsca",
+            "match": "%(\\\\>|\\\\<|\\\\/|\\\\&|\\\\!|\\\\@|\\\\\\$|\\\\%|\\\\\\#|\\\\,|\\\\\\*|\\\\=|\\\\\\(|\\\\\\)|\\\\\\{|\\\\\\}|\\\\\\.|\\\\\\[|\\\\\\]|[^\\s^$></&!@\\$%\\#,\\*=\\(\\)\\{\\}\\.\\[\\]])++"
+        },
+        "label": {
+            "name": "entity.name.function.cscsca emphasis.cscsca",
+            "match": "\\$(\\\\>|\\\\<|\\\\/|\\\\&|\\\\!|\\\\@|\\\\\\$|\\\\%|\\\\\\#|\\\\,|\\\\\\*|\\\\=|\\\\\\(|\\\\\\)|\\\\\\{|\\\\\\}|\\\\\\.|\\\\\\[|\\\\\\]|[^\\s^$></&!@\\$%\\#,\\*=\\(\\)\\{\\}\\.\\[\\]])++"
+        },
+        "definition_name": {
+            "name": "entity.name.type.cscsca",
+            "match": "(?<=(^DEFINE\\s*?))(\\\\>|\\\\<|\\\\/|\\\\&|\\\\!|\\\\@|\\\\\\$|\\\\%|\\\\\\#|\\\\,|\\\\\\*|\\\\=|\\\\\\(|\\\\\\)|\\\\\\{|\\\\\\}|\\\\\\.|\\\\\\[|\\\\\\]|[^\\s^$></&!@\\$%\\#,\\*=\\(\\)\\{\\}\\.\\[\\]])++"
+        },
+        "variable_name": {
+            "name": "entity.name.type.cscsca emphasis.cscsca",
+            "match": "(?<=(^(GET_AS_CODE|GET)\\s*?))(\\\\>|\\\\<|\\\\/|\\\\&|\\\\!|\\\\@|\\\\\\$|\\\\%|\\\\\\#|\\\\,|\\\\\\*|\\\\=|\\\\\\(|\\\\\\)|\\\\\\{|\\\\\\}|\\\\\\.|\\\\\\[|\\\\\\]|[^\\s^$></&!@\\$%\\#,\\*=\\(\\)\\{\\}\\.\\[\\]])++"
+        },
+        "break": {
+            "name": "keyword.control.cscsca",
+            "match": "(?<!\\\\)(>>|>|<<|<|//|/!|/|&!|&)"
+        },
+        "punctuation": {
+            "name": "punctuation.seperator.cscsca",
+            "match": "(?<!\\\\),"
+        },
+        "scope_bound": {
+            "name": "punctuation.bound.cscsca",
+            "match": "(?<!\\\\)(\\(|\\)|\\{|\\})"
+        },
+        "reserved": {
+            "name": "invalid.reserved.cscsca",
+            "match": "(?<!\\\\)(\\.|\\[|\\]|!)"
+        },
+        "phone": {
+            "name": "variable.phone.cscsca",
+            "match": "(\\\\>|\\\\<|\\\\/|\\\\&|\\\\!|\\\\@|\\\\\\$|\\\\%|\\\\\\#|\\\\,|\\\\\\*|\\\\=|\\\\\\(|\\\\\\)|\\\\\\{|\\\\\\}|\\\\\\.|\\\\\\[|\\\\\\]|[^\\s^$></&!@\\$%\\#,\\*=\\(\\)\\{\\}\\.\\[\\]])++"
+        }
+    },
+    "scopeName": "source.sca"
+}
