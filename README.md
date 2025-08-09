@@ -1,0 +1,1 @@
+`CSCSCA`'s VSCode extension and its generator
