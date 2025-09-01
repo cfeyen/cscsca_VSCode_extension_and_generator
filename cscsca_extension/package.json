@@ -46,8 +46,6 @@
 	"dependencies": {
 		"vscode": "^1.1.37"
 	},
-	"main": "extension",
-	"type": "commonjs",
 	"author": {
 		"name": "Charles Feyen"
 	},
