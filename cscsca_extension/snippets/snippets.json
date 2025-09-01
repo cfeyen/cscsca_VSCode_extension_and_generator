@@ -6,7 +6,7 @@
     },
     "Between": {
         "prefix": ["/"],
-        "body": ["/ ${$1:before} _ ${$2:after}$0"],
+        "body": ["/ ${1:before} _ ${2:after}$0"],
         "description": "Condition between elements"
     },
     "Print": {
