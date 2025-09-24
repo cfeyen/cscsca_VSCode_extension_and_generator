@@ -31,6 +31,9 @@
                     "include": "#special_characters"
                 },
                 {
+                    "include": "#escaped_special_characters"
+                },
+                {
                     "include": "#definition_call"
                 },
                 {
@@ -80,7 +83,11 @@
         },
         "special_characters": {
             "name": "keyword.cscsca",
-            "match": "(?<!\\\\)(\\#|\\*|=)"
+            "match": "(?<!\\\\)(\\#|\\*|=|\\\\(?=$))"
+        },
+        "escaped_special_characters": {
+            "name": "variable.escape.cscsca",
+            "match": "\\\\(\\#|\\*|=|\\\\|@|\\$|%|>|<|/|&|,|\\(|\\)|\\[|\\]|\\{|\\}|\\.)"
         },
         "definition_call": {
             "name": "entity.name.type.cscsca",
@@ -92,7 +99,7 @@
         },
         "label": {
             "name": "entity.name.function.cscsca emphasis.cscsca",
-            "match": "\\$(\\\\>|\\\\<|\\\\/|\\\\&|\\\\!|\\\\@|\\\\\\$|\\\\%|\\\\\\#|\\\\,|\\\\\\*|\\\\=|\\\\\\(|\\\\\\)|\\\\\\{|\\\\\\}|\\\\\\.|\\\\\\[|\\\\\\]|[^\\s^$></&!@\\$%\\#,\\*=\\(\\)\\{\\}\\.\\[\\]])++"
+            "match": "\\$((\\\\>|\\\\<|\\\\/|\\\\&|\\\\!|\\\\@|\\\\\\$|\\\\%|\\\\\\#|\\\\,|\\\\\\*|\\\\=|\\\\\\(|\\\\\\)|\\\\\\{|\\\\\\}|\\\\\\.|\\\\\\[|\\\\\\]|[^\\s^$></&!@\\$%\\#,\\*=\\(\\)\\{\\}\\.\\[\\]])++)?"
         },
         "definition_name": {
             "name": "entity.name.type.cscsca",
@@ -116,7 +123,7 @@
         },
         "reserved": {
             "name": "invalid.reserved.cscsca",
-            "match": "(?<!\\\\)(\\.|\\[|\\]|!)"
+            "match": "(?<!\\\\)(\\.|\\[|\\]|!|\\\\(?!\\s|^|$|>|<|/|&|!|@|\\$|%|\\#|,|\\*|=|\\(|\\)|\\{|\\}|\\.|\\[|\\])|\\\\[\\s|\\S])"
         },
         "phone": {
             "name": "variable.phone.cscsca",

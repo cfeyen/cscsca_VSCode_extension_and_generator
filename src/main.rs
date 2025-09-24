@@ -36,6 +36,7 @@ fn get(prompt: &str) -> String {
 struct GrammarGenerator {
     breaking_ahead_placeholder: String,
     breaking_behind_placeholder: String,
+    no_breaking_ahead_placeholder: String,
     word_placeholder: String,
     breaking_chars: Vec<BreakingChar>,
     comments: Vec<ExpressionFormat>,
@@ -89,6 +90,7 @@ impl GrammarGenerator {
         s.replace(&self.word_placeholder, &word)
             .replace(&self.breaking_behind_placeholder, &format!("(?<={breaking})"))
             .replace(&self.breaking_ahead_placeholder, &format!("(?={breaking})"))
+            .replace(&self.no_breaking_ahead_placeholder, &format!("(?!{breaking})"))
     }
 }
 
@@ -97,6 +99,7 @@ impl From<GrammarGenerator> for GrammarFile {
         let GrammarGenerator {
             breaking_ahead_placeholder: _,
             breaking_behind_placeholder: _,
+            no_breaking_ahead_placeholder: _,
             word_placeholder: _,
             breaking_chars: _,
             comments,

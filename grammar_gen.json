@@ -53,7 +53,12 @@
 		{
 			"name": "special_characters",
 			"token_type": "keyword.cscsca",
-			"match": "(?<!\\\\)(\\#|\\*|=)"
+			"match": "(?<!\\\\)(\\#|\\*|=|\\\\(?=$))"
+		},
+		{
+			"name": "escaped_special_characters",
+			"token_type": "variable.escape.cscsca",
+			"match": "\\\\(\\#|\\*|=|\\\\|@|\\$|%|>|<|/|&|,|\\(|\\)|\\[|\\]|\\{|\\}|\\.)"
 		},
 		{
 			"name": "definition_call",
@@ -68,7 +73,7 @@
 		{
 			"name": "label",
 			"token_type": "entity.name.function.cscsca emphasis.cscsca",
-			"match": "\\$w~"
+			"match": "\\$(w~)?"
 		},
 		{
 			"name": "definition_name",
@@ -98,7 +103,7 @@
 		{
 			"name": "reserved",
 			"token_type": "invalid.reserved.cscsca",
-			"match": "(?<!\\\\)(\\.|\\[|\\]|!)"
+			"match": "(?<!\\\\)(\\.|\\[|\\]|!|\\\\!~|\\\\[\\s|\\S])"
 		},
 		{
 			"name": "phone",
