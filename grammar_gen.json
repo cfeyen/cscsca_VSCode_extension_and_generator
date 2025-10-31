@@ -43,7 +43,7 @@
         {
 			"name": "statement",
 			"token_type": "keyword.cscsca strong.cscsca",
-			"match": "^(DEFINE|PRINT|GET_AS_CODE|GET)"
+			"match": "^(DEFINE_LAZY|DEFINE|PRINT|GET_AS_CODE|GET)"
 		},
         {
 			"name": "potentially_special_characters",
@@ -78,7 +78,7 @@
 		{
 			"name": "definition_name",
 			"token_type": "entity.name.type.cscsca",
-			"match": "(?<=(^DEFINE\\s*?))w~"
+			"match": "(?<=(^(DEFINE_LAZY|DEFINE)\\s*?))w~"
 		},
 		{
 			"name": "variable_name",
