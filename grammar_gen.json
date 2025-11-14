@@ -23,7 +23,6 @@
         { "char": "\\)", "escapable": true },
         { "char": "\\{", "escapable": true },
         { "char": "\\}", "escapable": true },
-        { "char": "\\.", "escapable": true },
         { "char": "\\[", "escapable": true },
         { "char": "\\]", "escapable": true }
     ],
@@ -48,7 +47,7 @@
         {
 			"name": "potentially_special_characters",
 			"token_type": "keyword.cscsca",
-			"match": "~<(_|\\.\\.)>~"
+			"match": "~<(_)>~"
 		},
 		{
 			"name": "special_characters",
@@ -88,7 +87,7 @@
 		{
 			"name": "break",
 			"token_type": "keyword.control.cscsca",
-			"match": "(?<!\\\\)(>>|>|<<|<|//|/!|/|&!|&)"
+			"match": "(?<!\\\\)(>>|>|<<|<|//|/!|/|&!|!|&)"
 		},
 		{
 			"name": "punctuation",
@@ -98,12 +97,7 @@
 		{
 			"name": "scope_bound",
 			"token_type": "punctuation.bound.cscsca",
-			"match": "(?<!\\\\)(\\(|\\)|\\{|\\})"
-		},
-		{
-			"name": "reserved",
-			"token_type": "invalid.reserved.cscsca",
-			"match": "(?<!\\\\)(\\.|\\[|\\]|!|\\\\!~|\\\\[\\s|\\S])"
+			"match": "(?<!\\\\)(\\(|\\)|\\{|\\}|\\[|\\])"
 		},
 		{
 			"name": "phone",
