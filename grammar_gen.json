@@ -3,6 +3,9 @@
     "no_breaking_ahead_placeholder": "!~",
     "breaking_behind_placeholder": "~<",
     "word_placeholder": "w~",
+    "escapable_placeholder": "e~",
+	"not_escaped_placeholder": "~e",
+	"escape_char": "\\\\",
     "breaking_chars": [
         { "char": "\\s", "escapable": false },
         { "char": "^", "escapable": false },
@@ -24,7 +27,8 @@
         { "char": "\\{", "escapable": true },
         { "char": "\\}", "escapable": true },
         { "char": "\\[", "escapable": true },
-        { "char": "\\]", "escapable": true }
+        { "char": "\\]", "escapable": true },
+        { "char": "\\\\", "escapable": true }
     ],
 	"comments": [
 		{
@@ -50,14 +54,19 @@
 			"match": "~<(_)>~"
 		},
 		{
-			"name": "special_characters",
-			"token_type": "keyword.cscsca",
-			"match": "(?<!\\\\)(\\#|\\*|=|\\\\(?=$))"
+			"name": "bad_escape",
+			"token_type": "invalid.bad_escape.cscsca",
+			"match": "\\\\(?!e~)(?!$)"
 		},
 		{
-			"name": "escaped_special_characters",
-			"token_type": "variable.escape.cscsca",
-			"match": "\\\\(\\#|\\*|=|\\\\|@|\\$|%|>|<|/|&|,|\\(|\\)|\\[|\\]|\\{|\\}|\\.)"
+			"name": "newline_escape",
+			"token_type": "constant.character.escape.cscsca",
+			"match": "\\\\(?=$)"
+		},
+		{
+			"name": "special_characters",
+			"token_type": "keyword.cscsca",
+			"match": "~e(\\#|\\*|=)"
 		},
 		{
 			"name": "definition_call",
@@ -87,17 +96,17 @@
 		{
 			"name": "break",
 			"token_type": "keyword.control.cscsca",
-			"match": "(?<!\\\\)(>>|>|<<|<|//|/!|/|&!|!|&)"
+			"match": "~e(>>|>|<<|<|//|/!|/|&!|!|&)"
 		},
 		{
 			"name": "punctuation",
 			"token_type": "punctuation.seperator.cscsca",
-			"match": "(?<!\\\\),"
+			"match": "~e,"
 		},
 		{
 			"name": "scope_bound",
 			"token_type": "punctuation.bound.cscsca",
-			"match": "(?<!\\\\)(\\(|\\)|\\{|\\}|\\[|\\])"
+			"match": "~e(\\(|\\)|\\{|\\}|\\[|\\])"
 		},
 		{
 			"name": "phone",

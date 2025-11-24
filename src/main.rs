@@ -1,9 +1,15 @@
-use std::{
-    fs,
-    io::{self, Write},
-};
+use std::{fs, io};
 
 use serde::{Deserialize, Serialize};
+use clap::Parser;
+
+#[derive(Parser)]
+struct Args {
+    #[arg(short, long)]
+    input: String,
+    #[arg(short, long, default_value_t = {"out.json".to_string()})]
+    output: String,
+}
 
 fn main() {
     if let Err(e) = gen_ext() {
@@ -12,24 +18,17 @@ fn main() {
 }
 
 fn gen_ext() -> io::Result<()> {
-    let gen_file = get("Enter JSON gen file");
+    let args = Args::parse();
+
+    let gen_file = args.input;
     let gen_json = fs::read_to_string(gen_file)?;
     let gen_json = serde_json::from_str::<GrammarGenerator>(&gen_json)?;
 
     let grammar: GrammarFile = gen_json.into();
     let grammar = serde_json::to_string(&grammar)?;
 
-    let target_file = get("Enter output file name");
+    let target_file = args.output;
     fs::write(target_file, grammar)
-}
-
-
-fn get(prompt: &str) -> String {
-    print!("{prompt}: ");
-    _ = io::stdout().flush();
-    let mut buffer = String::new();
-    _ = io::stdin().read_line(&mut buffer);
-    buffer.trim().to_string()
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Deserialize)]
@@ -38,9 +37,12 @@ struct GrammarGenerator {
     breaking_behind_placeholder: String,
     no_breaking_ahead_placeholder: String,
     word_placeholder: String,
+    escapable_placeholder: String,
+    not_escaped_placeholder: String,
     breaking_chars: Vec<BreakingChar>,
     comments: Vec<ExpressionFormat>,
-    expressions: Vec<ExpressionFormat>
+    expressions: Vec<ExpressionFormat>,
+    escape_char: String,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Deserialize)]
@@ -73,17 +75,22 @@ impl GrammarGenerator {
 
         let escaped_breaking = self.breaking_chars.iter()
             .flat_map(|BreakingChar { char, escapable }| if *escapable {
-                Some(format!("\\\\{char}"))
+                Some(format!("{}{char}", self.escape_char))
             } else {
                 None
             })
             .collect::<Vec<_>>()
             .join("|");
 
-        let word = format!("({escaped_breaking}|{non_breaking})++");
+        let word = format!("({escaped_breaking}|{non_breaking})+");
 
         let breaking = self.breaking_chars.iter()
             .map(|c| c.char.clone())
+            .collect::<Vec<_>>()
+            .join("|");
+
+        let escapable = self.breaking_chars.iter()
+            .filter_map(|BreakingChar { char, escapable }| if *escapable { Some(char.clone()) } else { None })
             .collect::<Vec<_>>()
             .join("|");
 
@@ -91,6 +98,8 @@ impl GrammarGenerator {
             .replace(&self.breaking_behind_placeholder, &format!("(?<={breaking})"))
             .replace(&self.breaking_ahead_placeholder, &format!("(?={breaking})"))
             .replace(&self.no_breaking_ahead_placeholder, &format!("(?!{breaking})"))
+            .replace(&self.escapable_placeholder, &format!("({escapable})"))
+            .replace(&self.not_escaped_placeholder, &format!("(?!{})({}{})*", self.escape_char, self.escape_char, self.escape_char))
     }
 }
 
@@ -101,9 +110,12 @@ impl From<GrammarGenerator> for GrammarFile {
             breaking_behind_placeholder: _,
             no_breaking_ahead_placeholder: _,
             word_placeholder: _,
+            escapable_placeholder: _,
+            not_escaped_placeholder: _,
             breaking_chars: _,
             comments,
             expressions,
+            escape_char: _,
         } = &grammar_gen;
 
         Self {
