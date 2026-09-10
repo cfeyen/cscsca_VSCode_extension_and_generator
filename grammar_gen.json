@@ -109,6 +109,11 @@
 			"match": "~e(\\(|\\)|\\{|\\}|\\[|\\])"
 		},
 		{
+			"name": "numbers",
+			"token_type": "constant.numeric.cscsca",
+			"match": "\\b[0-9]+\\b"
+		},
+		{
 			"name": "phone",
 			"token_type": "variable.phone.cscsca",
 			"match": "w~"
