@@ -14,6 +14,7 @@
         { "char": "<", "escapable": true },
         { "char": "/", "escapable": true },
         { "char": "&", "escapable": true },
+        { "char": "\\|", "escapable": true },
         { "char": "!", "escapable": true },
         { "char": "@", "escapable": true },
         { "char": "\\$", "escapable": true },
@@ -66,7 +67,7 @@
 		{
 			"name": "special_characters",
 			"token_type": "keyword.cscsca",
-			"match": "~e(\\#|\\*|=)"
+			"match": "~e(\\#|\\*|\\||=)"
 		},
 		{
 			"name": "definition_call",
